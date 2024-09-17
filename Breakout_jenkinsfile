@@ -3,6 +3,12 @@ pipeline {
     environment {
         SONAR_TOKEN = credentials('sonarqube-token')
     }
+
+    tools {
+        dotnet 'dotnet-sdk' 
+    }
+
+
     stages {
         stage('Checkout') {
             steps {
@@ -18,8 +24,8 @@ pipeline {
                 script {
                     // Check for .NET SDK and build the project
                     echo 'Building the BreakoutGame project...'
-                    sh 'dotnet restore'
-                    sh 'dotnet build --configuration Release'
+                    dotnet "restore"
+                    dotnet "build --configuration Release"
                 }
             }
         }
