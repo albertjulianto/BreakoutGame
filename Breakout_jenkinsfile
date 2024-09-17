@@ -18,6 +18,12 @@ pipeline {
                 script {
                     echo 'Building the BreakoutGame project...'
 
+                     // Restoring the dependencies
+                    sh '/bin/bash -c "dotnet restore"'
+
+                    // Build the project in Release mode
+                    sh '/bin/bash -c "dotnet build --configuration Release"'
+
                 }
             }
         }
@@ -67,6 +73,10 @@ pipeline {
             }
         }
 
-        
+        stage('Archive Build Artifacts') {
+            steps {
+                    archiveArtifacts artifacts: '**/bin/Release/**', allowEmptyArchive: true
+                }
+        }
     }
 }
