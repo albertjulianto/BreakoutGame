@@ -1,0 +1,14 @@
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.AssemblyInfoInputs.cache
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.AssemblyInfo.cs
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.csproj.CoreCompileInputs.cache
+/Users/alber/Documents/Code/BreakoutGame/bin/Debug/net8.0/BreakoutGame
+/Users/alber/Documents/Code/BreakoutGame/bin/Debug/net8.0/BreakoutGame.deps.json
+/Users/alber/Documents/Code/BreakoutGame/bin/Debug/net8.0/BreakoutGame.runtimeconfig.json
+/Users/alber/Documents/Code/BreakoutGame/bin/Debug/net8.0/BreakoutGame.dll
+/Users/alber/Documents/Code/BreakoutGame/bin/Debug/net8.0/BreakoutGame.pdb
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.dll
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/refint/BreakoutGame.dll
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.pdb
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/BreakoutGame.genruntimeconfig.cache
+/Users/alber/Documents/Code/BreakoutGame/obj/Debug/net8.0/ref/BreakoutGame.dll
