@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    environment {
+        SONAR_TOKEN = credentials('sonarqube-token')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from GitHub
+                git 'https://github.com/albertjulianto/BreakoutGame.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Check for .NET SDK and build the project
+                    echo 'Building the BreakoutGame project...'
+                    sh 'dotnet restore'
+                    sh 'dotnet build --configuration Release'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Optional: Run tests if you have test cases in your project
+                    echo 'Running tests...'
+                    // Add testing commands here (e.g., `dotnet test`)
+                }
+            }
+        }
+
+        stage('Archive Build Artifacts') {
+            steps {
+                script {
+                    // Create a build artifact (in this case, the Release build files)
+                    echo 'Archiving the build artifacts...'
+                    archiveArtifacts artifacts: '**/bin/Release/**', allowEmptyArchive: true
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()  // Clean workspace
+        }
+        success {
+            mail to: 'albertjulianto@gmail.com',
+                 subject: "SUCCESS: Breakout Game #${env.BUILD_NUMBER}",
+                 body: "The pipeline completed successfully!"
+        }
+        failure {
+            mail to: 'albertjulianto@gmail.com',
+                 subject: "FAILURE: Breakout Game #${env.BUILD_NUMBER}",
+                 body: "The pipeline failed! Please check the Jenkins logs."
+        }
+    }
+}
