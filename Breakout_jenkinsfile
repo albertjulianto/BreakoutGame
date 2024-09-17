@@ -5,6 +5,18 @@ pipeline {
     }
 
     stages {
+        stage('Environment Info') {
+            steps {
+                script {
+                    echo 'Checking environment variables and shell availability...'
+                    // Print the PATH and check the availability of sh and bash
+                    sh 'echo PATH=$PATH'
+                    sh 'which bash || echo "bash not found"'
+                    sh 'which sh || echo "sh not found"'
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 retry(3) {
@@ -17,8 +29,9 @@ pipeline {
             steps {
                 script {
                     echo 'Building the BreakoutGame project...'
-                    sh 'dotnet restore'
-                    sh 'dotnet build --configuration Release'
+                    // Using /bin/bash explicitly for commands
+                    sh '/bin/bash -c "dotnet restore"'  // Restore dependencies
+                    sh '/bin/bash -c "dotnet build --configuration Release"'  // Build in Release mode
                 }
             }
         }
@@ -27,7 +40,8 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    // dotnet test command can be added here if you have tests
+                    // Add your testing steps here, if applicable
+                    // Example: sh '/bin/bash -c "dotnet test"'
                 }
             }
         }
