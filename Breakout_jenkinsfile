@@ -5,18 +5,6 @@ pipeline {
     }
 
     stages {
-        stage('Environment Info') {
-            steps {
-                script {
-                    echo 'Checking environment variables and shell availability...'
-                    // Print the PATH and check the availability of sh and bash
-                    sh 'echo PATH=$PATH'
-                    sh 'which bash || echo "bash not found"'
-                    sh 'which sh || echo "sh not found"'
-                }
-            }
-        }
-
         stage('Checkout') {
             steps {
                 retry(3) {
@@ -29,9 +17,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the BreakoutGame project...'
-                    // Using /bin/bash explicitly for commands
-                    sh '/bin/bash -c "dotnet restore"'  // Restore dependencies
-                    sh '/bin/bash -c "dotnet build --configuration Release"'  // Build in Release mode
+
                 }
             }
         }
@@ -40,37 +26,47 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    // Add your testing steps here, if applicable
-                    // Example: sh '/bin/bash -c "dotnet test"'
+            
                 }
             }
         }
 
-        stage('Archive Build Artifacts') {
+        stage('Code Quality') {
             steps {
                 script {
-                    echo 'Archiving the build artifacts...'
-                    archiveArtifacts artifacts: '**/bin/Release/**', allowEmptyArchive: true
+                    echo 'Code Quality...'
+            
                 }
             }
         }
-    }
 
-    post {
-        always {
-            script {
-                cleanWs()  // Clean workspace after each run
+        stage('Deply') {
+            steps {
+                script {
+                    echo 'Deploy...'
+            
+                }
             }
         }
-        success {
-            mail to: 'albertjulianto@gmail.com',
-                 subject: "SUCCESS: Breakout Game #${env.BUILD_NUMBER}",
-                 body: "The pipeline completed successfully!"
+
+         stage('Release') {
+            steps {
+                script {
+                    echo 'Release...'
+            
+                }
+            }
         }
-        failure {
-            mail to: 'albertjulianto@gmail.com',
-                 subject: "FAILURE: Breakout Game #${env.BUILD_NUMBER}",
-                 body: "The pipeline failed! Please check the Jenkins logs."
+
+         stage('Monitoring and Alerting') {
+            steps {
+                script {
+                    echo 'Monitoring and Alerting...'
+            
+                }
+            }
         }
+
+        
     }
 }
