@@ -19,10 +19,10 @@ pipeline {
                     echo 'Building the BreakoutGame project...'
 
                      // Restoring the dependencies
-                    sh '/bin/bash -c "dotnet restore"'
+                    sh  "dotnet restore"
 
                     // Build the project in Release mode
-                    sh '/bin/bash -c "dotnet build --configuration Release"'
+                    sh  "dotnet build --configuration Release"
 
                 }
             }
