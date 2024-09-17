@@ -6,9 +6,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                retry(3){
                 // Checkout code from GitHub
-                git 'https://github.com/albertjulianto/BreakoutGame.git'
+                git branch: 'main', url: 'https://github.com/albertjulianto/BreakoutGame.git'
             }
+        }
         }
 
         stage('Build') {
