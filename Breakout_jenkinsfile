@@ -4,28 +4,21 @@ pipeline {
         SONAR_TOKEN = credentials('sonarqube-token')
     }
 
-     tools {
-        dotnetsdk 'dotnet-sdk'  // Use the correct tool type here, as 'dotnetsdk' is recognized
-    }
-
-
     stages {
         stage('Checkout') {
             steps {
-                retry(3){
-                // Checkout code from GitHub
-                git branch: 'main', url: 'https://github.com/albertjulianto/BreakoutGame.git'
+                retry(3) {
+                    git branch: 'main', url: 'https://github.com/albertjulianto/BreakoutGame.git'
+                }
             }
-        }
         }
 
         stage('Build') {
             steps {
                 script {
-                    // Check for .NET SDK and build the project
                     echo 'Building the BreakoutGame project...'
-                    sh 'dotnet restore'  // Run the 'dotnet restore' command
-                    sh 'dotnet build --configuration Release'  // Build in Release mode
+                    sh 'dotnet restore'
+                    sh 'dotnet build --configuration Release'
                 }
             }
         }
@@ -33,9 +26,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Optional: Run tests if you have test cases in your project
                     echo 'Running tests...'
-                    // Add testing commands here (e.g., `dotnet test`)
+                    // dotnet test command can be added here if you have tests
                 }
             }
         }
@@ -43,7 +35,6 @@ pipeline {
         stage('Archive Build Artifacts') {
             steps {
                 script {
-                    // Create a build artifact (in this case, the Release build files)
                     echo 'Archiving the build artifacts...'
                     archiveArtifacts artifacts: '**/bin/Release/**', allowEmptyArchive: true
                 }
@@ -53,7 +44,9 @@ pipeline {
 
     post {
         always {
-            cleanWs()  // Clean workspace
+            script {
+                cleanWs()  // Clean workspace after each run
+            }
         }
         success {
             mail to: 'albertjulianto@gmail.com',
